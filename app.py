@@ -1,12 +1,14 @@
 from flask import Flask,request
 from flask_restful import Resource,Api
 from pymongo import MongoClient
+import logging
 
 client = MongoClient('mongodb+srv://jeanpaulsb:1041690395@pollingapp.yvnqz8y.mongodb.net/test')
 
 app = Flask(__name__)
 api = Api(app)
 
+logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG, filename= "data.log")
 
 
 class Register(Resource):
@@ -30,6 +32,8 @@ class Register(Resource):
     
 
         jurors.insert_one(user)
+
+        logging.debug(f"Added new Juror {user['name']}")
 
 
 
